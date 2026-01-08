@@ -73,6 +73,8 @@ Salesforceでの自動テスト成功には、**テストピラミッドの原�
 
 ## Apexテストコード例
 
+[※同じコードはこちらのファイルにもあります](./force-app/main/default/classes/AccountContactPhoneSyncTest.cls)
+
 ```apex
 @isTest
 private class AccountContactPhoneSyncTest {
