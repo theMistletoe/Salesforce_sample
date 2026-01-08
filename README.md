@@ -68,7 +68,7 @@ Salesforceでの自動テスト成功には、**テストピラミッドの原�
 
 ### 機能の動作イメージ
 
-![動画](./assets/trigger.mov)
+![動画](./assets/trigger.gif)
 
 
 ## Apexテストコード例
