@@ -308,6 +308,7 @@ motoakitanaka@MotoakiTanakanoMacBook-Pro sample %
 ### 参考URL
 
 - https://www.apexhours.com/apex-test-class-best-practices/
+- https://lanefour.com/salesforce-admin/salesforce-flow-tests-5-scenarios-where-apex-unit-tests-are-the-better-choice/
 - https://trailhead.salesforce.com/ja/content/learn/modules/apex_testing/apex_testing_intro
 - https://trailhead.salesforce.com/ja/content/learn/modules/apex_testing/apex_testing_intro
 - https://trailhead.salesforce.com/ja/content/learn/modules/apex-testing-review-testing-fundamentals/determine-what-you-should-test-for-apex
