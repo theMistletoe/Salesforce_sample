@@ -1,0 +1,21 @@
+
+{
+    // This tsconfig is to verify the type correctness of the tests
+    "compilerOptions": {
+        "noEmit": true,
+        "rootDir": "src",
+        "noUnusedLocals": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "ES2020",
+        "skipLibCheck": true,
+        "strict": true,
+        "types": ["node", "webdriverio", "wdio-utam-service"]
+    },
+    "include": ["**/*"],
+    "exclude": [
+        "node_modules/**",
+    ]
+}

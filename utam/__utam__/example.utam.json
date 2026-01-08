@@ -1,0 +1,325 @@
+{
+    "description": {
+        "author": "UTAM generator",
+        "text": [
+            "Page Object: page object name",
+            "Root element: html"
+        ]
+    },
+    "root": true,
+    "selector": {
+        "css": "html"
+    },
+    "elements": [
+        {
+            "public": true,
+            "name": "title",
+            "type": [],
+            "selector": {
+                "css": "title"
+            }
+        },
+        {
+            "public": true,
+            "name": "scriptContent",
+            "type": [],
+            "selector": {
+                "css": "script"
+            }
+        },
+        {
+            "public": true,
+            "name": "styleContent",
+            "type": [],
+            "selector": {
+                "css": "style"
+            }
+        },
+        {
+            "public": true,
+            "name": "styleContent1",
+            "type": [],
+            "selector": {
+                "css": "style:nth-of-type(2)"
+            }
+        },
+        {
+            "public": true,
+            "name": "styleContent2",
+            "type": [],
+            "selector": {
+                "css": "style:nth-of-type(3)"
+            }
+        },
+        {
+            "name": "auraLoadingBox",
+            "type": [],
+            "selector": {
+                "css": "div#auraLoadingBox"
+            },
+            "elements": [
+                {
+                    "public": true,
+                    "name": "spanContent",
+                    "type": [],
+                    "selector": {
+                        "css": "span"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "auraErrorMask",
+            "type": [],
+            "selector": {
+                "css": "div#auraErrorMask"
+            },
+            "elements": [
+                {
+                    "name": "auraError",
+                    "type": [],
+                    "selector": {
+                        "css": "div#auraError"
+                    },
+                    "elements": [
+                        {
+                            "public": true,
+                            "name": "dismissError",
+                            "type": [
+                                "actionable",
+                                "clickable"
+                            ],
+                            "selector": {
+                                "css": "a#dismissError"
+                            },
+                            "elements": [
+                                {
+                                    "public": true,
+                                    "name": "spanContent1",
+                                    "type": [],
+                                    "selector": {
+                                        "css": "span"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "public": true,
+                            "name": "auraErrorTitleContent",
+                            "type": [],
+                            "selector": {
+                                "css": "span#auraErrorTitle"
+                            }
+                        },
+                        {
+                            "public": true,
+                            "name": "auraErrorMessageContent",
+                            "type": [],
+                            "selector": {
+                                "css": "div#auraErrorMessage"
+                            }
+                        },
+                        {
+                            "public": true,
+                            "name": "auraErrorReload",
+                            "type": [
+                                "actionable",
+                                "clickable"
+                            ],
+                            "selector": {
+                                "css": "a#auraErrorReload"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "iconstage",
+            "type": [],
+            "selector": {
+                "css": "div#iconstage"
+            },
+            "elements": [
+                {
+                    "name": "header",
+                    "type": [],
+                    "selector": {
+                        "css": "header"
+                    },
+                    "elements": [
+                        {
+                            "public": true,
+                            "name": "labelContent",
+                            "type": [],
+                            "selector": {
+                                "css": "label"
+                            }
+                        },
+                        {
+                            "public": true,
+                            "name": "input",
+                            "type": [
+                                "actionable",
+                                "clickable",
+                                "editable"
+                            ],
+                            "selector": {
+                                "css": "input"
+                            }
+                        },
+                        {
+                            "name": "list",
+                            "type": [],
+                            "selector": {
+                                "css": "ul"
+                            },
+                            "elements": [
+                                {
+                                    "public": true,
+                                    "name": "listItem",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "list1",
+                            "type": [],
+                            "selector": {
+                                "css": "ul:nth-of-type(2)"
+                            },
+                            "elements": [
+                                {
+                                    "public": true,
+                                    "name": "listItem1",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li"
+                                    },
+                                    "elements": [
+                                        {
+                                            "public": true,
+                                            "name": "spanContent2",
+                                            "type": [],
+                                            "selector": {
+                                                "css": "span"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "public": true,
+                                    "name": "listItem2",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li:nth-of-type(2)"
+                                    }
+                                },
+                                {
+                                    "public": true,
+                                    "name": "listItem3",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li:nth-of-type(3)"
+                                    }
+                                },
+                                {
+                                    "public": true,
+                                    "name": "listItem4",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li:nth-of-type(4)"
+                                    }
+                                },
+                                {
+                                    "public": true,
+                                    "name": "listItem5",
+                                    "type": [
+                                        "actionable",
+                                        "clickable"
+                                    ],
+                                    "selector": {
+                                        "css": "li:nth-of-type(5)"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "container",
+                    "type": [],
+                    "selector": {
+                        "css": "div#spinner-container"
+                    }
+                }
+            ]
+        },
+        {
+            "public": true,
+            "name": "divContent",
+            "type": [],
+            "selector": {
+                "css": "div"
+            }
+        },
+        {
+            "public": true,
+            "name": "styleContent3",
+            "type": [],
+            "selector": {
+                "css": "style:nth-of-type(4)"
+            }
+        },
+        {
+            "public": true,
+            "name": "styleContent4",
+            "type": [],
+            "selector": {
+                "css": "style:nth-of-type(5)"
+            }
+        },
+        {
+            "public": true,
+            "name": "scriptContent1",
+            "type": [],
+            "selector": {
+                "css": "script:nth-of-type(2)"
+            }
+        },
+        {
+            "public": true,
+            "name": "scriptContent2",
+            "type": [],
+            "selector": {
+                "css": "script:nth-of-type(3)"
+            }
+        },
+        {
+            "public": true,
+            "name": "scriptContent3",
+            "type": [],
+            "selector": {
+                "css": "script:nth-of-type(4)"
+            }
+        }
+    ]
+}

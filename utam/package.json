@@ -1,0 +1,29 @@
+{
+  "name": "utam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:utam && npm run build:ts",
+    "build:ts": "tsc -b tsconfig.json",
+    "build:utam": "utam -c utam.config.json",
+    "test": "wdio run wdio.conf.js",
+    "test:headless": "wdio run wdio.conf.js --headless"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^8.0.0",
+    "@wdio/local-runner": "^8.0.0",
+    "@wdio/mocha-framework": "^8.0.0",
+    "@wdio/spec-reporter": "^8.0.0",
+    "chromedriver": "^131.0.0",
+    "utam": "^3.3.0",
+    "wdio-chromedriver-service": "^8.1.1",
+    "wdio-utam-service": "^3.3.0"
+  },
+  "dependencies": {
+    "webdriverio": "^8.0.0"
+  }
+}
