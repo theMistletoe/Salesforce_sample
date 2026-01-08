@@ -305,6 +305,13 @@ Username             [org]
 motoakitanaka@MotoakiTanakanoMacBook-Pro sample % 
 ```
 
+### 参考URL
+
+- https://www.apexhours.com/apex-test-class-best-practices/
+- https://trailhead.salesforce.com/ja/content/learn/modules/apex_testing/apex_testing_intro
+- https://trailhead.salesforce.com/ja/content/learn/modules/apex_testing/apex_testing_intro
+- https://trailhead.salesforce.com/ja/content/learn/modules/apex-testing-review-testing-fundamentals/determine-what-you-should-test-for-apex
+
 
 # E2Eテストの具体例
 
