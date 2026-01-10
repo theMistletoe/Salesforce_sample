@@ -11,17 +11,26 @@ test.describe('Salesforce E2E Tests', () => {
     await expect(appLauncher).toBeVisible({ timeout: 30000 });
   });
 
-  test.skip('取引先一覧画面に遷移できる', async ({ sfPage, sfPaths }) => {
-    // 取引先一覧に遷移
-    await sfPage.goto(sfPage.url().split('/lightning')[0] + sfPaths.objectList('Account'));
-    await sfPage.waitForLoadState('networkidle');
+  test('取引先一覧画面に遷移できる', async ({ sfPage, sfPaths }) => {
+    // 取引先一覧画面に遷移
+    const accountListUrl = sfPage.url().replace(/\/lightning\/.*/, '') + sfPaths.objectList('Account');
+    await sfPage.goto(accountListUrl);
 
-    // 取引先一覧が表示されていることを確認
-    await expect(sfPage).toHaveURL(/Account/);
+    // 取引先一覧画面が表示されていることを確認
+    await expect(sfPage).toHaveURL(/Account\/list/, { timeout: 30000 });
+    
+    // 「test」取引先のリンクをクリックして詳細画面に遷移
+    // getByRole + テキストベースで内部構造に依存しない
+    await sfPage.getByRole('link', { name: 'test' }).first().click();
 
-    // 「新規」ボタンが表示されていることを確認
-    const newButton = sfPage.getByRole('button', { name: /新規|New/i });
-    await expect(newButton).toBeVisible({ timeout: 30000 });
+    // 取引先詳細画面が表示されていることを確認
+    await expect(sfPage).toHaveURL(/Account\/[a-zA-Z0-9]+\/view/, { timeout: 30000 });
+
+    // 電話番号が画面上に存在することを確認
+    // ページ上部のハイライト領域内の電話番号リンクをターゲット
+    const phoneLink = sfPage.getByRole('link', { name: '090-8765-4321' }).first();
+    await phoneLink.scrollIntoViewIfNeeded();
+    await expect(phoneLink).toBeVisible({ timeout: 30000 });
   });
 
   test.skip('Setup画面にアクセスできる', async ({ sfPage, getSfUrl }) => {

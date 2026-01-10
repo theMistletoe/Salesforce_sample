@@ -1,5 +1,6 @@
 import { test as base, Page } from '@playwright/test';
 import { getSalesforceFrontdoorUrl, SalesforcePaths } from '../lib/salesforce';
+import { getFrontdoorUrlFromCache } from '../lib/session-cache';
 
 // Salesforce用のカスタムオプション
 export interface SalesforceOptions {
@@ -20,6 +21,21 @@ export interface SalesforceFixtures {
 }
 
 /**
+ * フロントドアURLを取得（キャッシュ優先）
+ * 並列実行時の競合を避けるため、globalSetupでキャッシュされたセッションを優先使用
+ */
+function getOptimizedFrontdoorUrl(options?: { targetOrg?: string; path?: string }): string {
+  // キャッシュがあればそれを使用（並列実行対応）
+  const cachedUrl = getFrontdoorUrlFromCache(options?.path);
+  if (cachedUrl && !options?.targetOrg) {
+    return cachedUrl;
+  }
+  
+  // キャッシュがない場合は従来の方法（sf org open）
+  return getSalesforceFrontdoorUrl(options);
+}
+
+/**
  * Salesforce用のカスタムtest fixture
  */
 export const test = base.extend<SalesforceFixtures & SalesforceOptions>({
@@ -29,8 +45,8 @@ export const test = base.extend<SalesforceFixtures & SalesforceOptions>({
 
   // Salesforceログイン済みページを提供
   sfPage: async ({ page, targetOrg, initialPath }, use) => {
-    // フロントドアURLを取得
-    const frontdoorUrl = getSalesforceFrontdoorUrl({
+    // フロントドアURLを取得（キャッシュ優先）
+    const frontdoorUrl = getOptimizedFrontdoorUrl({
       targetOrg,
       path: initialPath,
     });
@@ -41,15 +57,37 @@ export const test = base.extend<SalesforceFixtures & SalesforceOptions>({
     // ログインが完了するまで待機（DOMContentLoadedで十分）
     await page.waitForLoadState('domcontentloaded');
 
-    // Lightning Experienceのメインコンテンツが表示されるまで待機
-    await page.waitForSelector('one-app-nav-bar, .slds-global-header, .forceSearchDesktopInput', { 
-      timeout: 60000 
-    });
-
-    // セッションが有効か確認（ログインページにリダイレクトされていないか）
+    // セッションが有効か確認（ログインページにリダイレクトされていないか）を先にチェック
     const currentUrl = page.url();
-    if (currentUrl.includes('/login') || currentUrl.includes('login.salesforce.com')) {
-      throw new Error('Salesforce login failed. Please check your org authentication.');
+    if (currentUrl.includes('/login') || currentUrl.includes('login.salesforce.com') || currentUrl.includes('secur/frontdoor.jsp')) {
+      // ログインページが表示されていないか確認
+      const loginForm = await page.locator('input[name="username"], input[name="pw"], #username, #password').first().isVisible().catch(() => false);
+      if (loginForm) {
+        throw new Error('Salesforce login failed. Session expired or invalid credentials. Please re-authenticate with: sf org login web');
+      }
+    }
+
+    // Lightning Experienceのメインコンテンツが表示されるまで待機
+    // より堅牢なセレクタ：複数のLightning Experienceの要素を対象
+    try {
+      await page.waitForSelector([
+        'one-app-nav-bar',                    // ナビゲーションバー
+        '.slds-global-header',                // グローバルヘッダー
+        'lightning-icon',                     // Lightningアイコン
+        '[data-component-id="navex_navigation"]', // ナビゲーション
+        '.oneGlobalNav',                      // グローバルナビ
+        'button[title*="ランチャー"], button[title*="Launcher"]', // アプリランチャー
+      ].join(', '), { 
+        timeout: 60000 
+      });
+    } catch (e) {
+      // タイムアウト時に詳細なエラー情報を提供
+      const pageContent = await page.content();
+      const isLoginPage = pageContent.includes('Username') && pageContent.includes('Password');
+      if (isLoginPage) {
+        throw new Error('Salesforce session expired. Please re-authenticate with: sf org login web');
+      }
+      throw new Error(`Failed to load Salesforce Lightning Experience. Current URL: ${page.url()}`);
     }
 
     await use(page);
