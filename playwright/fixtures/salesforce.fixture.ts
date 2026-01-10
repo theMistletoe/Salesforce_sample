@@ -60,9 +60,10 @@ export const test = base.extend<SalesforceFixtures & SalesforceOptions>({
     // セッションが有効か確認（ログインページにリダイレクトされていないか）を先にチェック
     const currentUrl = page.url();
     if (currentUrl.includes('/login') || currentUrl.includes('login.salesforce.com') || currentUrl.includes('secur/frontdoor.jsp')) {
-      // ログインページが表示されていないか確認
-      const loginForm = await page.locator('input[name="username"], input[name="pw"], #username, #password').first().isVisible().catch(() => false);
-      if (loginForm) {
+      // ログインページが表示されていないか確認（ユーザー視点のロケーターを使用）
+      const hasLoginButton = await page.getByRole('button', { name: /log in|ログイン/i }).isVisible().catch(() => false);
+      const hasUsernameField = await page.getByRole('textbox', { name: /username|ユーザー名/i }).isVisible().catch(() => false);
+      if (hasLoginButton || hasUsernameField) {
         throw new Error('Salesforce login failed. Session expired or invalid credentials. Please re-authenticate with: sf org login web');
       }
     }
