@@ -7,8 +7,9 @@ test.describe('Salesforce E2E Tests', () => {
     await expect(sfPage).toHaveURL(/lightning/);
 
     // ヘッダーのアプリランチャーが表示されていることを確認
-    const appLauncher = sfPage.getByRole('button', { name: /アプリケーションランチャー|App Launcher/i });
-    await expect(appLauncher).toBeVisible({ timeout: 30000 });
+    await expect(
+      sfPage.getByRole('button', { name: /アプリケーションランチャー|App Launcher/i })
+    ).toBeVisible({ timeout: 30000 });
   });
 
   test('取引先一覧画面に遷移できる', async ({ sfPage, sfPaths }) => {
@@ -20,17 +21,20 @@ test.describe('Salesforce E2E Tests', () => {
     await expect(sfPage).toHaveURL(/Account\/list/, { timeout: 30000 });
     
     // 「test」取引先のリンクをクリックして詳細画面に遷移
-    // getByRole + テキストベースで内部構造に依存しない
-    await sfPage.getByRole('link', { name: 'test' }).first().click();
+    // filter で親要素を絞り込み、より安定したロケーターにする
+    await sfPage
+      .getByRole('link', { name: 'test', exact: true })
+      .first()
+      .click();
 
     // 取引先詳細画面が表示されていることを確認
     await expect(sfPage).toHaveURL(/Account\/[a-zA-Z0-9]+\/view/, { timeout: 30000 });
 
     // 電話番号が画面上に存在することを確認
-    // ページ上部のハイライト領域内の電話番号リンクをターゲット
-    const phoneLink = sfPage.getByRole('link', { name: '090-8765-4321' }).first();
-    await phoneLink.scrollIntoViewIfNeeded();
-    await expect(phoneLink).toBeVisible({ timeout: 30000 });
+    // Playwrightは自動でスクロールするので scrollIntoViewIfNeeded は不要
+    await expect(
+      sfPage.getByRole('link', { name: '090-8765-4321' }).first()
+    ).toBeVisible({ timeout: 30000 });
   });
 
   test.skip('Setup画面にアクセスできる', async ({ sfPage, getSfUrl }) => {
@@ -52,7 +56,9 @@ test.describe('Salesforce 特定ページへの直接アクセス', () => {
     await expect(sfPage).toHaveURL(/Contact/);
 
     // リストビューが表示されていることを確認
-    const listView = sfPage.locator('lightning-list-view-manager-header');
-    await expect(listView).toBeVisible({ timeout: 30000 });
+    // 見出しやボタンなどユーザー視点の要素で確認
+    await expect(
+      sfPage.getByRole('heading', { name: /取引先責任者|Contacts/i })
+    ).toBeVisible({ timeout: 30000 });
   });
 });
