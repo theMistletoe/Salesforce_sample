@@ -329,6 +329,9 @@ Salesforceの専用のE2E自動テストツールを使わない場合、Playwri
 
 [Playwright Best Practices Guide](./assets/Playwright%20Best%20Practices%20Guide.pdf)
 
+いくつかサンプル的にPlaywrightでSalesforceのE2Eテストを実装する例を示します。
+[こちら](https://github.com/theMistletoe/Salesforce_sample/tree/main/playwright)
+
 
 
 その他、PlaywrightをSalesforceに対して使う際の独特の注意点やベストプラクティスについては、以下のドキュメントにまとめていますので、そちらを参照してください。
