@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <!-- コンポーネント一覧にひょうじされるようにisExposedをtrueに変更する -->
+    <isExposed>true</isExposed>
+    <masterLabel>MySimpleTable</masterLabel>
+    <description>レコード一覧表示</description>
+    <!-- 表示される対象は画面フローのみとする -->
+    <targets>
+      <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+      <!-- 画面フローのプロパティ定義 -->
+      <targetConfig targets="lightning__FlowScreen">
+        <propertyType name="T" extends="SObject" label="オブジェクト" />
+        <property role="inputOnly" label="オブジェクトAPI参照名" name="objectName" type="String" />
+        <property role="inputOnly" label="レコード一覧" name="records"  type="{T[]}" />
+        <property role="inputOnly" label="高さ(px)" name="height" type="Integer" />
+        <property role="outputOnly" label="選択されたレコード一覧" name="selectedRecords" type="{T[]}" />
+      </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
