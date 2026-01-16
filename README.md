@@ -32,6 +32,12 @@ Copadoの「State of Salesforce Testing」レポートによると、**84%のSal
 
 Mike CohnとMartin Fowlerが提唱したテストピラミッドは、自動テストの構造を視覚的に表現したモデルです。 [martinfowler](https://martinfowler.com/articles/practical-test-pyramid.html)[Martin Fowler](https://martinfowler.com/bliki/TestPyramid.html)底辺から頂点に向かって、**ユニットテスト（最多）→ 統合テスト（中程度）→ E2Eテスト（最少）**という階層構造を取ります。この構造は「高レベルになるほどテスト数を減らすべき」という原則に基づいています。 [martinfowler](https://martinfowler.com/articles/practical-test-pyramid.html)[Qase](https://qase.io/blog/test-pyramid/)
 
+#### テストピラミッドについて
+
+- https://logmi.jp/main/technology/330973
+- https://www.qbook.jp/column/1980.html
+
+
 GoogleはTest Sizesという実用的な分類を採用しており、テストを**Small/Medium/Large**に区分します。Smallテストはネットワークやデータベースへのアクセスを禁止し、60秒以内の実行を求めます。Mediumテストはlocalhost接続とデータベースアクセスを許可し、300秒以内に完了する必要があります。 [Mike Bland](https://mike-bland.com/2011/11/01/small-medium-large.html)Largeテストは外部システムとの通信を含む完全なシステムテストで、900秒以上の実行時間が許容されます。 [googleblog](https://testing.googleblog.com/2010/12/test-sizes.html)
 
 ### Salesforce環境へのマッピング
