@@ -8,5 +8,7 @@ module.exports = {
         '**/force-app/**/*.js',
         '!**/__tests__/**',
         '!**/node_modules/**'
-    ]
+    ],
+    coverageReporters: ['text', 'html', 'lcov'],
+    coverageDirectory: 'coverage'
 };

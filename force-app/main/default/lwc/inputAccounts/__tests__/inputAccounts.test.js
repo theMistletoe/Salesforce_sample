@@ -81,4 +81,41 @@ describe('c-input-accounts', () => {
         const inputs = element.shadowRoot.querySelectorAll('lightning-input');
         expect(inputs.length).toBe(3);
     });
+
+    it('取引先を追加すると件数が正しく表示される', async () => {
+        const element = createElement('c-input-accounts', {
+            is: InputAccounts
+        });
+        document.body.appendChild(element);
+
+        // 取引先名を入力
+        const inputs = element.shadowRoot.querySelectorAll('lightning-input');
+        const nameInput = Array.from(inputs).find(input => input.label === '取引先名');
+        nameInput.value = 'テスト株式会社';
+        nameInput.dispatchEvent(new CustomEvent('change', { target: nameInput }));
+
+        await Promise.resolve();
+
+        // 追加ボタンをクリック
+        const buttons = element.shadowRoot.querySelectorAll('lightning-button');
+        const addButton = Array.from(buttons).find(btn => btn.label === '追加');
+        addButton.click();
+
+        await Promise.resolve();
+
+        // 件数が表示されていることを確認
+        const heading = element.shadowRoot.querySelector('.slds-text-heading_small');
+        expect(heading).not.toBeNull();
+        expect(heading.textContent).toBe('登録済み取引先 (1件)');
+
+        // 2件目を追加
+        nameInput.value = 'サンプル商事';
+        nameInput.dispatchEvent(new CustomEvent('change', { target: nameInput }));
+        await Promise.resolve();
+        addButton.click();
+        await Promise.resolve();
+
+        // 件数が2件になっていることを確認
+        expect(heading.textContent).toBe('登録済み取引先 (2件)');
+    });
 });
